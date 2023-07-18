@@ -16,32 +16,49 @@ analyser.connect(audioCtx.destination)
 const bufferLen = analyser.frequencyBinCount
 const dataArr = new Uint8Array(bufferLen)
 
-const barWidth = 3
+const barWidth = canvas.width / bufferLen / 2
 
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height)
 
   analyser.getByteFrequencyData(dataArr)
 
-  for (let i = bufferLen - 1; i >= 0; i--) {
-    const freq = dataArr[i]
-    ctx.fillStyle = `hsl(${80 + freq / 2}, 80%, 50%)`
-    ctx.fillRect(
-      canvas.width / 2 - barWidth * i,
-      canvas.height / 2 - freq / 2 - 1.5,
-      barWidth,
-      3 + freq
-    )
-  }
+  let px, py, px2, py2
+
   for (let i = 0; i < bufferLen; i++) {
     const freq = dataArr[i]
-    ctx.fillStyle = `hsl(${80 + freq / 2}, 80%, 50%)`
-    ctx.fillRect(
-      canvas.width / 2 + barWidth * i,
-      canvas.height / 2 - freq / 2 - 1.5,
-      barWidth,
-      3 + freq
-    )
+    ctx.strokeStyle = `hsl(${90 + freq * 0.6}, 80%, 50%)`
+    ctx.lineWidth = 1.5
+
+    const x = canvas.width / 2 - barWidth * i
+    const x2 = canvas.width / 2 + barWidth * i
+    const y = canvas.height / 2 - freq / 2
+    const y2 = canvas.height / 2 + freq / 2
+
+    ctx.beginPath()
+    ctx.moveTo(px || x, py || y)
+    ctx.lineTo(x, y)
+    ctx.stroke()
+
+    ctx.beginPath()
+    ctx.moveTo(px || x, py2)
+    ctx.lineTo(x, y2)
+    ctx.stroke()
+
+    ctx.beginPath()
+    ctx.moveTo(px2, py || y)
+    ctx.lineTo(x2, y)
+    ctx.stroke()
+
+    ctx.beginPath()
+    ctx.moveTo(px2, py2)
+    ctx.lineTo(x2, y2)
+    ctx.stroke()
+
+    px = x
+    py = y
+    px2 = x2
+    py2 = y2
   }
 
   requestAnimationFrame(draw)
