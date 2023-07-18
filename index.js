@@ -70,6 +70,8 @@ fileInput.addEventListener("change", () => {
   }
 
   audio.src = URL.createObjectURL(fileInput.files[0])
+  audio.load()
+  audio.play()
 })
 
 if (fileInput.files.length !== 0) {
