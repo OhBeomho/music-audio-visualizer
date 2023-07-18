@@ -47,12 +47,6 @@ function draw() {
   requestAnimationFrame(draw)
 }
 
-function sizeCanvas() {
-  canvas.width = window.innerWidth
-  canvas.height = window.innerHeight
-}
-
-window.addEventListener("resize", sizeCanvas())
 fileInput.addEventListener("change", () => {
   if (fileInput.files.length === 0) {
     return
@@ -65,5 +59,4 @@ if (fileInput.files.length !== 0) {
   audio.src = URL.createObjectURL(fileInput.files[0])
 }
 
-sizeCanvas()
 draw()

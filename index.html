@@ -9,34 +9,23 @@
         margin: 0;
         height: 100vh;
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
-      }
-
-      .container {
-        height: 30vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        align-items: center;
+        gap: 10px;
+        background-color: black;
         color: white;
       }
 
       canvas {
-        position: absolute;
-        top: 0;
-        left: 0;
-        z-index: -1;
         background-color: black;
       }
     </style>
   </head>
   <body>
-    <canvas></canvas>
-    <div class="container">
-      <audio controls></audio><br />
-      <input type="file" />
-    </div>
+    <canvas width="750" height="300"></canvas>
+    <audio controls></audio>
+    <input type="file" />
 
     <script src="./index.js"></script>
   </body>
